@@ -1,4 +1,4 @@
-use super::{AzureCliCredential, EnvironmentCredential, ManagedIdentityCredential};
+use super::{AzureCliCredential, ManagedIdentityCredential};
 use azure_core::errors::AzureError;
 use azure_core::{TokenCredential, TokenResponse};
 use log::debug;
@@ -41,9 +41,9 @@ impl DefaultCredentialBuilder {
             + self.include_managed_identity_credential as usize;
         let mut sources =
             Vec::<Box<dyn TokenCredential + Send + Sync>>::with_capacity(source_count);
-        if self.include_environment_credential {
-            sources.push(Box::new(EnvironmentCredential::default()));
-        }
+        // if self.include_environment_credential {
+        //     sources.push(Box::new(EnvironmentCredential::default()));
+        // }
         if self.include_managed_identity_credential {
             sources.push(Box::new(ManagedIdentityCredential {}))
         }
@@ -54,7 +54,7 @@ impl DefaultCredentialBuilder {
     }
 }
 
-/// Provides a default `TokenCredential` authentication flow for applications that will be deployed to Azure.  
+/// Provides a default `TokenCredential` authentication flow for applications that will be deployed to Azure.
 ///
 /// The following credential types if enabled will be tried, in order:
 /// - EnvironmentCredential
@@ -75,7 +75,7 @@ impl Default for DefaultCredential {
     fn default() -> Self {
         DefaultCredential {
             sources: vec![
-                Box::new(EnvironmentCredential::default()),
+                // Box::new(EnvironmentCredential::default()),
                 Box::new(ManagedIdentityCredential {}),
                 Box::new(AzureCliCredential {}),
             ],

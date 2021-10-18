@@ -1,4 +1,4 @@
-use super::{AzureCliCredential, ManagedIdentityCredential};
+use super::{AzureCliCredential};
 use azure_core::errors::AzureError;
 use azure_core::{TokenCredential, TokenResponse};
 use log::debug;
@@ -44,9 +44,9 @@ impl DefaultCredentialBuilder {
         // if self.include_environment_credential {
         //     sources.push(Box::new(EnvironmentCredential::default()));
         // }
-        if self.include_managed_identity_credential {
-            sources.push(Box::new(ManagedIdentityCredential {}))
-        }
+        // if self.include_managed_identity_credential {
+        //     sources.push(Box::new(ManagedIdentityCredential {}))
+        // }
         if self.include_cli_credential {
             sources.push(Box::new(AzureCliCredential {}));
         }
@@ -76,7 +76,7 @@ impl Default for DefaultCredential {
         DefaultCredential {
             sources: vec![
                 // Box::new(EnvironmentCredential::default()),
-                Box::new(ManagedIdentityCredential {}),
+                // Box::new(ManagedIdentityCredential {}),
                 Box::new(AzureCliCredential {}),
             ],
         }

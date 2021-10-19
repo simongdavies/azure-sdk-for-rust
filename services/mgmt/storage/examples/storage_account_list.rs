@@ -10,7 +10,7 @@ use std::env;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
-// Requires Azure Subscription in AZURE_SUBSCRIPTION_ID and token in RPAAS_MSI_TOKEN
+// Requires Azure Subscription in AZURE_SUBSCRIPTION_ID and token in AZURE_MSI_TOKEN
 
 #[tokio::main]
 async fn main() -> Result<()> {

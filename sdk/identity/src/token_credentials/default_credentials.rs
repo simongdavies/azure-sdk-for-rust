@@ -1,4 +1,4 @@
-use super::{AzureCliCredential};
+use super::AzureCliCredential;
 use azure_core::errors::AzureError;
 use azure_core::{TokenCredential, TokenResponse};
 use log::debug;
@@ -75,8 +75,10 @@ impl Default for DefaultCredential {
     fn default() -> Self {
         DefaultCredential {
             sources: vec![
-                // Box::new(EnvironmentCredential::default()),
-                // Box::new(ManagedIdentityCredential {}),
+                #[cfg(not(feature = "enable_rpaas_wasm_modules"))]
+                Box::new(EnvironmentCredential::default()),
+                #[cfg(not(feature = "enable_rpaas_wasm_modules"))]
+                Box::new(ManagedIdentityCredential {}),
                 Box::new(AzureCliCredential {}),
             ],
         }

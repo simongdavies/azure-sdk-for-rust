@@ -659,7 +659,6 @@ pub mod storage_account_properties {
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum ProvisioningState {
         Creating,
-        #[serde(rename = "ResolvingDNS")]
         ResolvingDns,
         Succeeded,
     }
